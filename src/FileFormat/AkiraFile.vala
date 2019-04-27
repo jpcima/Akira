@@ -41,7 +41,7 @@ public class Akira.FileFormat.AkiraFile : Akira.FileFormat.ZipArchiveHandler {
             version_data = new FileFormat.Version (version_json != null ? version_json : new Json.Object ());
 
             debug ("Version from file: %s\n", version_data.file_version);
-        } catch (Error e) {
+        } catch ( Error e ) {
             error ("Could not load file: %s\n", e.message);
         }
     }
@@ -52,7 +52,7 @@ public class Akira.FileFormat.AkiraFile : Akira.FileFormat.ZipArchiveHandler {
 
             write_content_to_file (version_file, version_data.to_string (false));
             write_to_archive ();
-        } catch (Error e) {
+        } catch ( Error e ) {
             warning ("%s\n", e.message);
         }
     }
@@ -60,7 +60,7 @@ public class Akira.FileFormat.AkiraFile : Akira.FileFormat.ZipArchiveHandler {
     public void close () {
         try {
             clean ();
-        } catch (Error e) {
+        } catch ( Error e ) {
             warning ("%s\n", e.message);
         }
     }
@@ -85,4 +85,5 @@ public class Akira.FileFormat.AkiraFile : Akira.FileFormat.ZipArchiveHandler {
         make_file (content_file);
         make_file (version_file);
     }
+
 }

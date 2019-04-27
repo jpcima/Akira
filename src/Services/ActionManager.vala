@@ -1,23 +1,23 @@
 /*
-* Copyright (c) 2019 Alecaddd (http://alecaddd.com)
-*
-* This file is part of Akira.
-*
-* Akira is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
+ * Copyright (c) 2019 Alecaddd (http://alecaddd.com)
+ *
+ * This file is part of Akira.
+ *
+ * Akira is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
 
-* Akira is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
+ * Akira is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
 
-* You should have received a copy of the GNU General Public License
-* along with Akira.  If not, see <https://www.gnu.org/licenses/>.
-*
-* Authored by: Alessandro "Alecaddd" Castellani <castellani.ale@gmail.com>
-*/
+ * You should have received a copy of the GNU General Public License
+ * along with Akira.  If not, see <https://www.gnu.org/licenses/>.
+ *
+ * Authored by: Alessandro "Alecaddd" Castellani <castellani.ale@gmail.com>
+ */
 
 public class Akira.Services.ActionManager : Object {
     public weak Akira.Application app { get; construct; }
@@ -70,7 +70,7 @@ public class Akira.Services.ActionManager : Object {
         Object (
             app: akira_app,
             window: main_window
-        );
+            );
     }
 
     static construct {
@@ -94,7 +94,7 @@ public class Akira.Services.ActionManager : Object {
         actions.add_action_entries (action_entries, this);
         window.insert_action_group ("win", actions);
 
-        foreach (var action in action_accelerators.get_keys ()) {
+        foreach ( var action in action_accelerators.get_keys ()) {
             app.set_accels_for_action (ACTION_PREFIX + action, action_accelerators[action].to_array ());
         }
     }
@@ -203,7 +203,7 @@ public class Akira.Services.ActionManager : Object {
     }
 
     private void action_preferences () {
-        if (window.settings_dialog == null) {
+        if ( window.settings_dialog == null ) {
             window.settings_dialog = new Akira.Widgets.SettingsDialog (window);
             window.settings_dialog.show_all ();
 
@@ -252,7 +252,8 @@ public class Akira.Services.ActionManager : Object {
         artboard.show_all ();
     }
 
-    public static void action_from_group (string action_name, ActionGroup? action_group) {
+    public static void action_from_group (string action_name, ActionGroup ? action_group) {
         action_group.activate_action (action_name, null);
     }
+
 }

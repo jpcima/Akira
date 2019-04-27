@@ -17,13 +17,13 @@
  *  Boston, MA 02110-1301 USA.
  */
 
- /**
-  * Contains the last version of Akira that opened the file.
-  *
-  * In the future, we may want to prevent the app from opening a file
-  * version bigger than the app version. It can also help us debug
-  * when users post the terminal output.
-  */
+/**
+ * Contains the last version of Akira that opened the file.
+ *
+ * In the future, we may want to prevent the app from opening a file
+ * version bigger than the app version. It can also help us debug
+ * when users post the terminal output.
+ */
 public class Akira.FileFormat.Version : FileFormat.JsonObject {
     public string file_version { get; set; default = "0.0.0"; }
 

@@ -1,23 +1,23 @@
 /*
-* Copyright (c) 2019 Alecaddd (http://alecaddd.com)
-*
-* This file is part of Akira.
-*
-* Akira is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
+ * Copyright (c) 2019 Alecaddd (http://alecaddd.com)
+ *
+ * This file is part of Akira.
+ *
+ * Akira is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
 
-* Akira is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
+ * Akira is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
 
-* You should have received a copy of the GNU General Public License
-* along with Akira.  If not, see <https://www.gnu.org/licenses/>.
-*
-* Authored by: Alessandro "Alecaddd" Castellani <castellani.ale@gmail.com>
-*/
+ * You should have received a copy of the GNU General Public License
+ * along with Akira.  If not, see <https://www.gnu.org/licenses/>.
+ *
+ * Authored by: Alessandro "Alecaddd" Castellani <castellani.ale@gmail.com>
+ */
 public class Akira.Layouts.MainCanvas : Gtk.Grid {
     public Gtk.ScrolledWindow main_scroll;
     public Akira.Lib.Canvas canvas;
@@ -45,25 +45,25 @@ public class Akira.Layouts.MainCanvas : Gtk.Grid {
     public Goo.CanvasRect add_rect () {
         var root = canvas.get_root_item ();
         var rect = new Goo.CanvasRect (null, 100.0, 100.0, 400.0, 400.0,
-                                    "line-width", 5.0,
-                                    "radius-x", 100.0,
-                                    "radius-y", 100.0,
-                                    "stroke-color", "#f37329",
-                                    "fill-color", "#ffa154", null);
+                                       "line-width", 5.0,
+                                       "radius-x", 100.0,
+                                       "radius-y", 100.0,
+                                       "stroke-color", "#f37329",
+                                       "fill-color", "#ffa154", null);
         rect.set ("parent", root);
-        rect.set_transform(Cairo.Matrix.identity ());
-        return  rect;
+        rect.set_transform (Cairo.Matrix.identity ());
+        return rect;
     }
 
     public Goo.CanvasEllipse add_ellipse () {
         var root = canvas.get_root_item ();
         var ellipse = new Goo.CanvasEllipse (null, 150, 150, 64, 64,
-            "line-width", 5.0,
-            "stroke-color", "#9bdb4d",
-            "fill-color", "#68b723");
+                                             "line-width", 5.0,
+                                             "stroke-color", "#9bdb4d",
+                                             "fill-color", "#68b723");
 
         ellipse.set ("parent", root);
-        ellipse.set_transform(Cairo.Matrix.identity ());
+        ellipse.set_transform (Cairo.Matrix.identity ());
         return ellipse;
     }
 
@@ -72,7 +72,8 @@ public class Akira.Layouts.MainCanvas : Gtk.Grid {
         var text = new Goo.CanvasText (null, "Add text here", 20, 20, 200, Goo.CanvasAnchorType.NW, "font", "Open Sans 18");
         text.set ("parent", root);
         text.set ("height", 25f);
-        text.set_transform(Cairo.Matrix.identity ());
+        text.set_transform (Cairo.Matrix.identity ());
         return text;
     }
+
 }

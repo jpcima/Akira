@@ -33,7 +33,7 @@ public class Akira.Partials.AlignBoxButton : Gtk.Button {
             icon: icon_name,
             action: action_name,
             tooltip_text: tooltip
-        );
+            );
     }
 
     construct {
@@ -47,11 +47,11 @@ public class Akira.Partials.AlignBoxButton : Gtk.Button {
 
     private void update_icon_style () {
         var size = settings.use_symbolic == true ? Gtk.IconSize.SMALL_TOOLBAR :
-                                                   Gtk.IconSize.LARGE_TOOLBAR;
+                   Gtk.IconSize.LARGE_TOOLBAR;
         var new_icon = settings.use_symbolic == true ? ("%s-symbolic".printf (icon)) :
-                                                       icon.replace ("-symbolic", "");
+                       icon.replace ("-symbolic", "");
 
-        if (btn_image != null) {
+        if ( btn_image != null ) {
             remove (btn_image);
         }
 
@@ -70,4 +70,5 @@ public class Akira.Partials.AlignBoxButton : Gtk.Button {
             window.event_bus.emit ("align-items", action);
         });
     }
+
 }

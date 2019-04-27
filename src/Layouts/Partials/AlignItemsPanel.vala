@@ -21,7 +21,7 @@
 public class Akira.Layouts.Partials.AlignItemsPanel : Gtk.Grid {
     public weak Akira.Window window { get; construct; }
 
-    public int current_button_column { get; set; default = 0;}
+    public int current_button_column { get; set; default = 0; }
 
     private struct AlignBoxItem {
         public string type;
@@ -47,7 +47,7 @@ public class Akira.Layouts.Partials.AlignItemsPanel : Gtk.Grid {
         Object (
             window: window,
             orientation: Gtk.Orientation.VERTICAL
-        );
+            );
     }
 
     construct {
@@ -58,22 +58,22 @@ public class Akira.Layouts.Partials.AlignItemsPanel : Gtk.Grid {
         alignment_box.halign = Gtk.Align.CENTER;
         alignment_box.hexpand = true;
 
-        foreach (var item in ALIGN_ITEMS_PANEL_BUTTONS) {
-            switch (item.type) {
-                case "sep":
-                    alignment_box.attach (new Gtk.Separator (Gtk.Orientation.VERTICAL),
-                                                             current_button_column++, 0, 1, 1 );
-                    break;
+        foreach ( var item in ALIGN_ITEMS_PANEL_BUTTONS ) {
+            switch ( item.type ) {
+            case "sep":
+                alignment_box.attach (new Gtk.Separator (Gtk.Orientation.VERTICAL),
+                                      current_button_column++, 0, 1, 1);
+                break;
 
-                case "btn":
-                    var tmp_align_box_button = new Akira.Partials.AlignBoxButton (
-                                                                  window,
-                                                                  item.action_name,
-                                                                  item.icon_name,
-                                                                  item.tooltip_text);
+            case "btn":
+                var tmp_align_box_button = new Akira.Partials.AlignBoxButton (
+                    window,
+                    item.action_name,
+                    item.icon_name,
+                    item.tooltip_text);
 
-                    alignment_box.attach (tmp_align_box_button, current_button_column++, 0, 1, 1);
-                    break;
+                alignment_box.attach (tmp_align_box_button, current_button_column++, 0, 1, 1);
+                break;
             }
         }
 

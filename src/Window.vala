@@ -1,26 +1,26 @@
 /*
-* Copyright (c) 2019 Alecaddd (http://alecaddd.com)
-*
-* This file is part of Akira.
-*
-* Akira is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
+ * Copyright (c) 2019 Alecaddd (http://alecaddd.com)
+ *
+ * This file is part of Akira.
+ *
+ * Akira is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
 
-* Akira is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
+ * Akira is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
 
-* You should have received a copy of the GNU General Public License
-* along with Akira.  If not, see <https://www.gnu.org/licenses/>.
-*
-* Authored by: Alessandro "Alecaddd" Castellani <castellani.ale@gmail.com>
-*/
+ * You should have received a copy of the GNU General Public License
+ * along with Akira.  If not, see <https://www.gnu.org/licenses/>.
+ *
+ * Authored by: Alessandro "Alecaddd" Castellani <castellani.ale@gmail.com>
+ */
 
 public class Akira.Window : Gtk.ApplicationWindow {
-    public FileFormat.AkiraFile? akira_file = null;
+    public FileFormat.AkiraFile ? akira_file = null;
 
     public weak Akira.Application app { get; construct; }
 
@@ -28,7 +28,7 @@ public class Akira.Window : Gtk.ApplicationWindow {
     public Akira.Services.EventBus event_bus;
     public Akira.Layouts.HeaderBar headerbar;
     public Akira.Layouts.MainWindow main_window;
-    public Akira.Widgets.SettingsDialog? settings_dialog = null;
+    public Akira.Widgets.SettingsDialog ? settings_dialog = null;
     public Akira.Utils.Dialogs dialogs;
 
     public SimpleActionGroup actions { get; construct; }
@@ -42,7 +42,7 @@ public class Akira.Window : Gtk.ApplicationWindow {
             application: akira_app,
             app: akira_app,
             icon_name: "com.github.akiraux.akira"
-        );
+            );
     }
 
     construct {
@@ -67,7 +67,7 @@ public class Akira.Window : Gtk.ApplicationWindow {
     private void build_ui () {
         set_titlebar (headerbar);
         set_border_width (0);
-        if (Constants.PROFILE == "development") {
+        if ( Constants.PROFILE == "development" ) {
             headerbar.get_style_context ().add_class ("devel");
         }
 
@@ -86,9 +86,9 @@ public class Akira.Window : Gtk.ApplicationWindow {
 
         Gtk.StyleContext.add_provider_for_screen (
             Gdk.Screen.get_default (), css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-        );
+            );
 
-        if (!settings.show_label) {
+        if ( !settings.show_label ) {
             Akira.Services.ActionManager.action_from_group (Akira.Services.ActionManager.ACTION_LABELS, get_action_group ("win"));
         }
     }
@@ -98,15 +98,15 @@ public class Akira.Window : Gtk.ApplicationWindow {
 
         save_and_close_current_file ();
 
-        if (!edited) {
+        if ( !edited ) {
             app.get_active_window ().destroy ();
             on_destroy ();
         }
 
-        if (edited) {
-            confirmed = dialogs.message_dialog (_("Are you sure you want to quit?"), _("All unsaved data will be lost and impossible to recover."), "system-shutdown", _("Yes, Quit!"));
+        if ( edited ) {
+            confirmed = dialogs.message_dialog (_ ("Are you sure you want to quit?"), _ ("All unsaved data will be lost and impossible to recover."), "system-shutdown", _ ("Yes, Quit!"));
 
-            if (confirmed) {
+            if ( confirmed ) {
                 app.get_active_window ().destroy ();
                 on_destroy ();
             }
@@ -118,7 +118,7 @@ public class Akira.Window : Gtk.ApplicationWindow {
     public void on_destroy () {
         uint length = app.windows.length ();
 
-        if (length == 0) {
+        if ( length == 0 ) {
             Gtk.main_quit ();
         }
     }
@@ -156,9 +156,10 @@ public class Akira.Window : Gtk.ApplicationWindow {
     }
 
     private void save_and_close_current_file () {
-        if (akira_file != null) {
+        if ( akira_file != null ) {
             akira_file.save_file ();
             akira_file.close ();
         }
     }
+
 }

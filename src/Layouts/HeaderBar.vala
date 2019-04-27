@@ -1,23 +1,23 @@
 /*
-* Copyright (c) 2019 Alecaddd (http://alecaddd.com)
-*
-* This file is part of Akira.
-*
-* Akira is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
+ * Copyright (c) 2019 Alecaddd (http://alecaddd.com)
+ *
+ * This file is part of Akira.
+ *
+ * Akira is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
 
-* Akira is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
+ * Akira is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
 
-* You should have received a copy of the GNU General Public License
-* along with Akira.  If not, see <https://www.gnu.org/licenses/>.
-*
-* Authored by: Alessandro "Alecaddd" Castellani <castellani.ale@gmail.com>
-*/
+ * You should have received a copy of the GNU General Public License
+ * along with Akira.  If not, see <https://www.gnu.org/licenses/>.
+ *
+ * Authored by: Alessandro "Alecaddd" Castellani <castellani.ale@gmail.com>
+ */
 
 public class Akira.Layouts.HeaderBar : Gtk.HeaderBar {
     public weak Akira.Window window { get; construct; }
@@ -56,7 +56,7 @@ public class Akira.Layouts.HeaderBar : Gtk.HeaderBar {
         Object (
             toggled: true,
             window: main_window
-        );
+            );
     }
 
     construct {
@@ -64,79 +64,79 @@ public class Akira.Layouts.HeaderBar : Gtk.HeaderBar {
 
         var menu_items = new Gtk.Menu ();
 
-        var new_window = new Gtk.MenuItem.with_label (_("New Window"));
+        var new_window = new Gtk.MenuItem.with_label (_ ("New Window"));
         new_window.action_name = Akira.Services.ActionManager.ACTION_PREFIX + Akira.Services.ActionManager.ACTION_NEW_WINDOW;
         menu_items.add (new_window);
         menu_items.add (new Gtk.SeparatorMenuItem ());
 
-        var open = new Gtk.MenuItem.with_label (_("Open"));
+        var open = new Gtk.MenuItem.with_label (_ ("Open"));
         open.action_name = Akira.Services.ActionManager.ACTION_PREFIX + Akira.Services.ActionManager.ACTION_OPEN;
         menu_items.add (open);
 
-        var save = new Gtk.MenuItem.with_label (_("Save"));
+        var save = new Gtk.MenuItem.with_label (_ ("Save"));
         save.action_name = Akira.Services.ActionManager.ACTION_PREFIX + Akira.Services.ActionManager.ACTION_SAVE;
         menu_items.add (save);
 
-        var save_as = new Gtk.MenuItem.with_label (_("Save As"));
+        var save_as = new Gtk.MenuItem.with_label (_ ("Save As"));
         save_as.action_name = Akira.Services.ActionManager.ACTION_PREFIX + Akira.Services.ActionManager.ACTION_SAVE_AS;
         menu_items.add (save_as);
 
         menu_items.add (new Gtk.SeparatorMenuItem ());
 
-        var quit = new Gtk.MenuItem.with_label(_("Quit"));
+        var quit = new Gtk.MenuItem.with_label (_ ("Quit"));
         quit.action_name = Akira.Services.ActionManager.ACTION_PREFIX + Akira.Services.ActionManager.ACTION_QUIT;
         menu_items.add (quit);
 
         menu_items.show_all ();
 
-        menu = new Akira.Partials.MenuButton ("document-open", _("Menu"), null);
+        menu = new Akira.Partials.MenuButton ("document-open", _ ("Menu"), null);
         menu.button.popup = menu_items;
 
         var tools = new Gtk.Menu ();
-        tools.add (new Gtk.MenuItem.with_label(_("Artboard")));
+        tools.add (new Gtk.MenuItem.with_label (_ ("Artboard")));
         tools.add (new Gtk.SeparatorMenuItem ());
-        tools.add (new Gtk.MenuItem.with_label(_("Vector")));
-        tools.add (new Gtk.MenuItem.with_label(_("Pencil")));
-        var shapes_item = new Gtk.MenuItem.with_label(_("Shapes"));
+        tools.add (new Gtk.MenuItem.with_label (_ ("Vector")));
+        tools.add (new Gtk.MenuItem.with_label (_ ("Pencil")));
+        var shapes_item = new Gtk.MenuItem.with_label (_ ("Shapes"));
         var shapes_submenu = new Gtk.Menu ();
         shapes_item.submenu = shapes_submenu;
-        var rect_item = new Gtk.MenuItem.with_label(_("Rect"));
+        var rect_item = new Gtk.MenuItem.with_label (_ ("Rect"));
         rect_item.action_name = Akira.Services.ActionManager.ACTION_PREFIX + Akira.Services.ActionManager.ACTION_ADD_RECT;
         shapes_submenu.add (rect_item);
-        var ellipse_item = new Gtk.MenuItem.with_label(_("Ellipse"));
+        var ellipse_item = new Gtk.MenuItem.with_label (_ ("Ellipse"));
         ellipse_item.action_name = Akira.Services.ActionManager.ACTION_PREFIX + Akira.Services.ActionManager.ACTION_ADD_ELLIPSE;
         shapes_submenu.add (ellipse_item);
         tools.add (shapes_item);
         tools.add (new Gtk.SeparatorMenuItem ());
-        var text_item = new Gtk.MenuItem.with_label(_("Text"));
+        var text_item = new Gtk.MenuItem.with_label (_ ("Text"));
         text_item.action_name = Akira.Services.ActionManager.ACTION_PREFIX + Akira.Services.ActionManager.ACTION_ADD_TEXT;
         tools.add (text_item);
-        tools.add (new Gtk.MenuItem.with_label(_("Image")));
+        tools.add (new Gtk.MenuItem.with_label (_ ("Image")));
         tools.show_all ();
 
-        toolset = new Akira.Partials.MenuButton ("insert-object", _("Insert"), null);
+        toolset = new Akira.Partials.MenuButton ("insert-object", _ ("Insert"), null);
         toolset.button.popup = tools;
 
         zoom = new Akira.Partials.ZoomButton (window);
 
-        group = new Akira.Partials.HeaderBarButton ("object-group", _("Group"), {"<Ctrl>g"});
-        ungroup = new Akira.Partials.HeaderBarButton ("object-ungroup", _("Ungroup"), {"<Ctrl><Shift>g"});
+        group = new Akira.Partials.HeaderBarButton ("object-group", _ ("Group"), { "<Ctrl>g" });
+        ungroup = new Akira.Partials.HeaderBarButton ("object-ungroup", _ ("Ungroup"), { "<Ctrl><Shift>g" });
 
-        move_up = new Akira.Partials.HeaderBarButton ("selection-raise", _("Up"), {"<Ctrl>Up"});
-        move_down = new Akira.Partials.HeaderBarButton ("selection-lower", _("Down"), {"<Ctrl>Down"});
-        move_top = new Akira.Partials.HeaderBarButton ("selection-top", _("Top"), {"<Ctrl><Shift>Up"});
-        move_bottom = new Akira.Partials.HeaderBarButton ("selection-bottom", _("Bottom"), {"<Ctrl><Shift>Down"});
+        move_up = new Akira.Partials.HeaderBarButton ("selection-raise", _ ("Up"), { "<Ctrl>Up" });
+        move_down = new Akira.Partials.HeaderBarButton ("selection-lower", _ ("Down"), { "<Ctrl>Down" });
+        move_top = new Akira.Partials.HeaderBarButton ("selection-top", _ ("Top"), { "<Ctrl><Shift>Up" });
+        move_bottom = new Akira.Partials.HeaderBarButton ("selection-bottom", _ ("Bottom"), { "<Ctrl><Shift>Down" });
 
-        preferences = new Akira.Partials.HeaderBarButton ("open-menu", _("Settings"), {"<Ctrl>comma"});
+        preferences = new Akira.Partials.HeaderBarButton ("open-menu", _ ("Settings"), { "<Ctrl>comma" });
         preferences.button.action_name = Akira.Services.ActionManager.ACTION_PREFIX + Akira.Services.ActionManager.ACTION_PREFERENCES;
 
-        export = new Akira.Partials.HeaderBarButton ("document-export", _("Export"), {"<Ctrl><Shift>E"});
+        export = new Akira.Partials.HeaderBarButton ("document-export", _ ("Export"), { "<Ctrl><Shift>E" });
         export.button.action_name = Akira.Services.ActionManager.ACTION_PREFIX + Akira.Services.ActionManager.ACTION_EXPORT;
 
-        path_difference = new Akira.Partials.HeaderBarButton ("path-difference", _("Difference"), null);
-        path_exclusion = new Akira.Partials.HeaderBarButton ("path-exclusion", _("Exclusion"), null);
-        path_intersect = new Akira.Partials.HeaderBarButton ("path-intersection", _("Intersect"), null);
-        path_union = new Akira.Partials.HeaderBarButton ("path-union", _("Union"), null);
+        path_difference = new Akira.Partials.HeaderBarButton ("path-difference", _ ("Difference"), null);
+        path_exclusion = new Akira.Partials.HeaderBarButton ("path-exclusion", _ ("Exclusion"), null);
+        path_intersect = new Akira.Partials.HeaderBarButton ("path-intersection", _ ("Intersect"), null);
+        path_union = new Akira.Partials.HeaderBarButton ("path-union", _ ("Union"), null);
 
         pack_start (menu);
         pack_start (toolset);
@@ -192,4 +192,5 @@ public class Akira.Layouts.HeaderBar : Gtk.HeaderBar {
     public void toggle () {
         toggled = !toggled;
     }
+
 }

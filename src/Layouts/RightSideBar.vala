@@ -1,23 +1,23 @@
 /*
-* Copyright (c) 2019 Alecaddd (http://alecaddd.com)
-*
-* This file is part of Akira.
-*
-* Akira is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
+ * Copyright (c) 2019 Alecaddd (http://alecaddd.com)
+ *
+ * This file is part of Akira.
+ *
+ * Akira is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
 
-* Akira is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
+ * Akira is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
 
-* You should have received a copy of the GNU General Public License
-* along with Akira.  If not, see <https://www.gnu.org/licenses/>.
-*
-* Authored by: Alessandro "Alecaddd" Castellani <castellani.ale@gmail.com>
-*/
+ * You should have received a copy of the GNU General Public License
+ * along with Akira.  If not, see <https://www.gnu.org/licenses/>.
+ *
+ * Authored by: Alessandro "Alecaddd" Castellani <castellani.ale@gmail.com>
+ */
 
 public class Akira.Layouts.RightSideBar : Gtk.Grid {
     public weak Akira.Window window { get; construct; }
@@ -44,7 +44,7 @@ public class Akira.Layouts.RightSideBar : Gtk.Grid {
             column_homogeneous: true,
             toggled: true,
             window: main_window
-        );
+            );
     }
 
     construct {
@@ -66,8 +66,8 @@ public class Akira.Layouts.RightSideBar : Gtk.Grid {
         layers_scroll.add (layers_grid);
 
         var scrolled_child = layers_scroll.get_child ();
-        if (scrolled_child is Gtk.Container) {
-            ((Gtk.Container) scrolled_child).set_focus_vadjustment (new Gtk.Adjustment (0, 0, 0, 0, 0, 0));
+        if ( scrolled_child is Gtk.Container ) {
+            ((Gtk.Container)scrolled_child).set_focus_vadjustment (new Gtk.Adjustment (0, 0, 0, 0, 0, 0));
         }
 
         layers_overlay = new Gtk.Overlay ();
@@ -111,14 +111,14 @@ public class Akira.Layouts.RightSideBar : Gtk.Grid {
         pages_scroll.expand = true;
         pages_scroll.add (pages_panel);
 
-        attach (pane, 0 , 0 , 1, 1);
+        attach (pane, 0, 0, 1, 1);
     }
 
     private Gtk.Grid build_search_bar () {
         var search = new Gtk.SearchEntry ();
         search.hexpand = true;
         search.margin = 5;
-        search.placeholder_text = _("Search Layer");
+        search.placeholder_text = _ ("Search Layer");
 
         search.activate.connect (() => {
             warning ("search");
@@ -134,4 +134,5 @@ public class Akira.Layouts.RightSideBar : Gtk.Grid {
     public void toggle () {
         toggled = !toggled;
     }
+
 }
