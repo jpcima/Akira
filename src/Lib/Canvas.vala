@@ -145,6 +145,9 @@ public class Akira.Lib.Canvas : Goo.Canvas {
     }
 
     public override bool motion_notify_event (Gdk.EventMotion event) {
+        if (selected_item.get_data<bool>("lock")) {
+            return false;
+        }
         if (!holding) {
             motion_hover_event (event);
             return false;

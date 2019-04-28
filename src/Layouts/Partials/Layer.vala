@@ -557,6 +557,8 @@ public class Akira.Layouts.Partials.Layer : Gtk.ListBoxRow {
                 button_locked.get_style_context ().remove_class ("show");
             }
 
+            item.set_data<bool>("lock", active);
+
             icon_unlocked.visible = active;
             icon_unlocked.no_show_all = ! active;
 

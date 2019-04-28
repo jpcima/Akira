@@ -233,6 +233,7 @@ public class Akira.Services.ActionManager : Object {
 
     private void action_add_rect () {
         var rect = window.main_window.main_canvas.add_rect ();
+        rect.set_data<bool>("lock", false);
         var artboard = window.main_window.right_sidebar.layers_panel.artboard;
         artboard.container.add (new Akira.Layouts.Partials.Layer (window, artboard, rect, "Rectangle", "shape-rectangle-symbolic", false));
         artboard.show_all ();
@@ -240,6 +241,7 @@ public class Akira.Services.ActionManager : Object {
 
     private void action_add_ellipse () {
         var ellipse = window.main_window.main_canvas.add_ellipse ();
+        ellipse.set_data<bool>("lock", false);
         var artboard = window.main_window.right_sidebar.layers_panel.artboard;
         artboard.container.add (new Akira.Layouts.Partials.Layer (window, artboard, ellipse, "Circle", "shape-circle-symbolic", false));
         artboard.show_all ();
@@ -247,6 +249,7 @@ public class Akira.Services.ActionManager : Object {
 
     private void action_add_text () {
         var text = window.main_window.main_canvas.add_text ();
+        text.set_data<bool>("lock", false);
         var artboard = window.main_window.right_sidebar.layers_panel.artboard;
         artboard.container.add (new Akira.Layouts.Partials.Layer (window, artboard, text, "Text", "shape-text-symbolic", false));
         artboard.show_all ();
