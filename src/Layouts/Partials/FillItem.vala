@@ -39,6 +39,7 @@ public class Akira.Layouts.Partials.FillItem : Gtk.Grid {
       return model.color;
     }
     set {
+      debug ("item color: %s\n", value);
       model.color = value;
 
       set_selected_color_background ();
@@ -239,11 +240,20 @@ public class Akira.Layouts.Partials.FillItem : Gtk.Grid {
   private void on_color_changed () {
     var selectedColor = color_chooser_widget.rgba;
 
-    color = "#%02X%02X%02X".printf (
-      (int) (selectedColor.red * 255),
-      (int) (selectedColor.green * 255),
-      (int) (selectedColor.blue * 255)
-    );
+    uint rgba = (uint)Math.round(selectedColor.red * 255);
+    rgba = (rgba << 8) + (uint)Math.round(selectedColor.green * 255);
+    rgba = (rgba << 8) + (uint)Math.round(selectedColor.blue * 255);
+    rgba = (rgba << 8) + (uint)Math.round(selectedColor.alpha * 255);
+    debug ("set color chooser: %u\n", rgba);
+    string s = "rgba(%d,%d,%d,%f)".printf (
+                                           (int) (selectedColor.red   * 255),
+                                           (int) (selectedColor.green * 255),
+                                           (int) (selectedColor.blue  * 255),
+                                                  selectedColor.alpha
+                                          );
+
+    debug ("set color chooser: %s\n", s);
+    color = s;
   }
 
   private void on_model_changed () {

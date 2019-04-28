@@ -20,23 +20,46 @@
 */
 
 public class Akira.Models.FillsItemModel : GLib.Object {
-    public string color { get; set; }
+    public string color {
+        owned get {
+            debug ("get color %u\n", item.fill_color_rgba);
+            string s =
+            "rgba(%d,%d,%d,%f)"
+            .printf((int)(Math.round(item.fill_color_rgba >> 24 & 0xFF)),
+                    (int)(Math.round(item.fill_color_rgba >> 16 & 0xFF)),
+                    (int)(Math.round(item.fill_color_rgba >>  8 & 0xFF)),
+                                    (item.fill_color_rgba >>  0 & 0xFF) / 255);
+            debug ("get int to rgba %s\n", s);
+            return s;
+        } set {
+            debug ("set color: %s\n", value);
+            var newRGBA = Gdk.RGBA ();
+            newRGBA.parse (value);
+            uint rgba = (uint)Math.round(newRGBA.red * 255);
+            rgba = (rgba << 8) + (uint)Math.round(newRGBA.green * 255);
+            rgba = (rgba << 8) + (uint)Math.round(newRGBA.blue * 255);
+            rgba = (rgba << 8) + (uint)Math.round(newRGBA.alpha * 255);
+            debug ("set hex2int %u\n", rgba);
+            item.fill_color_rgba = rgba;
+        }
+    }
     public uint opacity { get; set; }
     public new bool visible { get; set; }
     public Akira.Utils.BlendingMode blending_mode { get; set; }
     public Akira.Models.FillsListModel list_model { get; set; }
+    public Goo.CanvasItemSimple item { get; construct; }
 
-    public FillsItemModel(string color,
-                          uint opacity,
+    public FillsItemModel(Goo.CanvasItemSimple item_simple,
+                          int opacity,
                           bool visible,
                           Akira.Utils.BlendingMode blending_mode,
                           Akira.Models.FillsListModel list_model) {
         Object(
-            color: color,
             opacity: opacity,
             visible: visible,
             blending_mode: blending_mode,
-            list_model: list_model
+            list_model: list_model,
+            item: item_simple
         );
     }
 

@@ -39,12 +39,11 @@ public class Akira.Models.FillsListModel : GLib.Object, GLib.ListModel {
         return typeof (Akira.Models.FillsItemModel);
     }
 
-    public void add () {
+    public void add (Goo.CanvasItemSimple item) {
         var position = fills_list.length ();
         fills_list.append (
             new Akira.Models.FillsItemModel (
-                "#abcded",
-                100,
+                item, 100,
                 true,
                 Akira.Utils.BlendingMode.NORMAL,
                 this

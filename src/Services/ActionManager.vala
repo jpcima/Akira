@@ -234,6 +234,7 @@ public class Akira.Services.ActionManager : Object {
     private void action_add_rect () {
         var rect = window.main_window.main_canvas.add_rect ();
         var artboard = window.main_window.right_sidebar.layers_panel.artboard;
+        window.main_window.left_sidebar.fill_box_panel.fills_list_model.add(rect);
         artboard.container.add (new Akira.Layouts.Partials.Layer (window, artboard, rect, "Rectangle", "shape-rectangle-symbolic", false));
         artboard.show_all ();
     }
@@ -241,6 +242,7 @@ public class Akira.Services.ActionManager : Object {
     private void action_add_ellipse () {
         var ellipse = window.main_window.main_canvas.add_ellipse ();
         var artboard = window.main_window.right_sidebar.layers_panel.artboard;
+        window.main_window.left_sidebar.fill_box_panel.fills_list_model.add(ellipse);
         artboard.container.add (new Akira.Layouts.Partials.Layer (window, artboard, ellipse, "Circle", "shape-circle-symbolic", false));
         artboard.show_all ();
     }
@@ -248,6 +250,7 @@ public class Akira.Services.ActionManager : Object {
     private void action_add_text () {
         var text = window.main_window.main_canvas.add_text ();
         var artboard = window.main_window.right_sidebar.layers_panel.artboard;
+        window.main_window.left_sidebar.fill_box_panel.fills_list_model.add(text);
         artboard.container.add (new Akira.Layouts.Partials.Layer (window, artboard, text, "Text", "shape-text-symbolic", false));
         artboard.show_all ();
     }
