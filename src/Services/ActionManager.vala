@@ -234,6 +234,7 @@ public class Akira.Services.ActionManager : Object {
     private void action_add_rect () {
         var rect = window.main_window.main_canvas.add_rect ();
         var artboard = window.main_window.right_sidebar.layers_panel.artboard;
+        window.main_window.left_sidebar.transform_panel.item = rect;
         artboard.container.add (new Akira.Layouts.Partials.Layer (window, artboard, rect, "Rectangle", "shape-rectangle-symbolic", false));
         artboard.show_all ();
     }
