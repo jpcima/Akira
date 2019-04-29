@@ -66,7 +66,7 @@ public class Akira.Layouts.RightSideBar : Gtk.Grid {
         layers_scroll.add (layers_grid);
 
         var scrolled_child = layers_scroll.get_child ();
-        if ( scrolled_child is Gtk.Container ) {
+        if (scrolled_child is Gtk.Container) {
             ((Gtk.Container)scrolled_child).set_focus_vadjustment (new Gtk.Adjustment (0, 0, 0, 0, 0, 0));
         }
 

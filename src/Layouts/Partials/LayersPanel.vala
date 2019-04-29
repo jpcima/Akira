@@ -78,7 +78,7 @@ public class Akira.Layouts.Partials.LayersPanel : Gtk.ListBox {
 
         target = (Akira.Layouts.Partials.Artboard)get_row_at_y (y);
 
-        if ( target == null ) {
+        if (target == null) {
             newPos = -1;
         } else {
             newPos = target.get_index ();
@@ -88,7 +88,7 @@ public class Akira.Layouts.Partials.LayersPanel : Gtk.ListBox {
 
         source = (Akira.Layouts.Partials.Artboard)row.get_ancestor (typeof (Akira.Layouts.Partials.Artboard));
 
-        if ( source == target ) {
+        if (source == target) {
             return;
         }
 
@@ -100,7 +100,7 @@ public class Akira.Layouts.Partials.LayersPanel : Gtk.ListBox {
         // var row = (Akira.Layouts.Partials.Artboard) get_row_at_y (y);
 
         check_scroll (y);
-        if ( should_scroll && !scrolling ) {
+        if (should_scroll && !scrolling) {
             scrolling = true;
             Timeout.add (SCROLL_DELAY, scroll);
         }
@@ -115,7 +115,7 @@ public class Akira.Layouts.Partials.LayersPanel : Gtk.ListBox {
     private void check_scroll (int y) {
         vadjustment = window.main_window.right_sidebar.layers_scroll.vadjustment;
 
-        if ( vadjustment == null ) {
+        if (vadjustment == null) {
             return;
         }
 
@@ -124,10 +124,10 @@ public class Akira.Layouts.Partials.LayersPanel : Gtk.ListBox {
         double show_min = double.max (0, y - SCROLL_DISTANCE);
         double show_max = double.min (vadjustment.upper, y + SCROLL_DISTANCE);
 
-        if ( vadjustment_min > show_min ) {
+        if (vadjustment_min > show_min) {
             should_scroll = true;
             scroll_up = true;
-        } else if ( vadjustment_max < show_max ) {
+        } else if (vadjustment_max < show_max) {
             should_scroll = true;
             scroll_up = false;
         } else {
@@ -136,8 +136,8 @@ public class Akira.Layouts.Partials.LayersPanel : Gtk.ListBox {
     }
 
     private bool scroll () {
-        if ( should_scroll ) {
-            if ( scroll_up ) {
+        if (should_scroll) {
+            if (scroll_up) {
                 vadjustment.value -= SCROLL_STEP_SIZE;
             } else {
                 vadjustment.value += SCROLL_STEP_SIZE;
@@ -153,7 +153,7 @@ public class Akira.Layouts.Partials.LayersPanel : Gtk.ListBox {
         loop = 0;
 
         @foreach (row => {
-            if ( !(row is Akira.Layouts.Partials.Artboard)) {
+            if (!(row is Akira.Layouts.Partials.Artboard)) {
                 return;
             }
             zebra_artboard ((Akira.Layouts.Partials.Artboard)row);
@@ -161,23 +161,23 @@ public class Akira.Layouts.Partials.LayersPanel : Gtk.ListBox {
     }
 
     private void zebra_artboard (Akira.Layouts.Partials.Artboard artboard) {
-        artboard.container.foreach ( row => {
-            if ( !(row is Akira.Layouts.Partials.Layer)) {
+        artboard.container.foreach (row => {
+            if (!(row is Akira.Layouts.Partials.Layer)) {
                 return;
             }
             zebra_layer ((Akira.Layouts.Partials.Layer)row);
-        } );
+        });
     }
 
     private void zebra_layer (Akira.Layouts.Partials.Layer layer) {
         loop++;
         layer.get_style_context ().remove_class ("even");
 
-        if ( loop % 2 == 0 ) {
+        if (loop % 2 == 0) {
             layer.get_style_context ().add_class ("even");
         }
 
-        if ( layer.grouped ) {
+        if (layer.grouped) {
             zebra_layer_group (layer);
         }
     }
@@ -185,12 +185,12 @@ public class Akira.Layouts.Partials.LayersPanel : Gtk.ListBox {
     private void zebra_layer_group (Akira.Layouts.Partials.Layer layer) {
         bool open = layer.revealer.get_reveal_child ();
 
-        layer.container.foreach ( row => {
-            if ( !(row is Akira.Layouts.Partials.Layer) || !open ) {
+        layer.container.foreach (row => {
+            if (!(row is Akira.Layouts.Partials.Layer) || !open) {
                 return;
             }
             zebra_layer ((Akira.Layouts.Partials.Layer)row);
-        } );
+        });
     }
 
 }

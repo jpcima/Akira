@@ -94,7 +94,7 @@ public class Akira.Services.ActionManager : Object {
         actions.add_action_entries (action_entries, this);
         window.insert_action_group ("win", actions);
 
-        foreach ( var action in action_accelerators.get_keys ()) {
+        foreach (var action in action_accelerators.get_keys ()) {
             app.set_accels_for_action (ACTION_PREFIX + action, action_accelerators[action].to_array ());
         }
     }
@@ -203,7 +203,7 @@ public class Akira.Services.ActionManager : Object {
     }
 
     private void action_preferences () {
-        if ( window.settings_dialog == null ) {
+        if (window.settings_dialog == null) {
             window.settings_dialog = new Akira.Widgets.SettingsDialog (window);
             window.settings_dialog.show_all ();
 

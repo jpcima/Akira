@@ -100,12 +100,12 @@ public class Akira.Lib.Canvas : Goo.Canvas {
 
         var clicked_item = get_item_at (temp_event_x, temp_event_y, true);
 
-        if ( clicked_item != null ) {
+        if (clicked_item != null) {
 
             var clicked_id = get_grabbed_id (clicked_item);
             holding = true;
 
-            if ( clicked_id == Nob.NONE ) { // Non-nub was clicked
+            if (clicked_id == Nob.NONE) { // Non-nub was clicked
                 remove_select_effect ();
                 add_select_effect (clicked_item);
                 grab_focus (clicked_item);
@@ -126,11 +126,11 @@ public class Akira.Lib.Canvas : Goo.Canvas {
     }
 
     public override bool button_release_event (Gdk.EventButton event) {
-        if ( !holding ) return false;
+        if (!holding) return false;
 
         holding = false;
 
-        if ( delta_x == 0 && delta_y == 0 ) {
+        if (delta_x == 0 && delta_y == 0) {
             return false;
         }
 
@@ -145,7 +145,7 @@ public class Akira.Lib.Canvas : Goo.Canvas {
     }
 
     public override bool motion_notify_event (Gdk.EventMotion event) {
-        if ( !holding ) {
+        if (!holding) {
             motion_hover_event (event);
             return false;
         }
@@ -157,7 +157,7 @@ public class Akira.Lib.Canvas : Goo.Canvas {
         debug ("event x: %f\n", event_x);
         debug ("event y: %f\n", event_y);
 
-        if ( !temp_event_converted ) {
+        if (!temp_event_converted) {
             convert_to_item_space (selected_item, ref temp_event_x, ref temp_event_y);
             temp_event_converted = true;
         }
@@ -195,8 +195,8 @@ public class Akira.Lib.Canvas : Goo.Canvas {
         debug ("update x: %s\n", update_x.to_string ());
         debug ("update y: %s\n", update_y.to_string ());
 
-        switch ( holding_id ) {
-        case Nob.NONE:     // Moving
+        switch (holding_id) {
+        case Nob.NONE: // Moving
             double move_x = fix_x_position (delta_x, x + width);
             double move_y = fix_y_position (delta_y, y + height);
             debug ("move x %f\n", move_x);
@@ -206,10 +206,10 @@ public class Akira.Lib.Canvas : Goo.Canvas {
             event_y -= move_y;
             break;
         case Nob.TOP_LEFT:
-            if ( new_delta_y > height ) {
+            if (new_delta_y > height) {
                 new_delta_y = 0;
             }
-            if ( new_delta_x > width ) {
+            if (new_delta_x > width) {
                 new_delta_x = 0;
             }
             selected_item.translate (new_delta_x, new_delta_y);
@@ -219,7 +219,7 @@ public class Akira.Lib.Canvas : Goo.Canvas {
             new_height = fix_size (height - new_delta_y);
             break;
         case Nob.TOP_CENTER:
-            if ( new_delta_y < height ) {
+            if (new_delta_y < height) {
                 new_height = fix_size (height - new_delta_y);
                 selected_item.translate (0, new_delta_y);
                 event_y -= new_delta_y;
@@ -228,13 +228,13 @@ public class Akira.Lib.Canvas : Goo.Canvas {
         case Nob.TOP_RIGHT:
             update_x = event_x > x;
             debug ("update x: %s\n", update_x.to_string ());
-            if ( new_delta_x == 0 ) {
-                if ( delta_x > 0 && update_x ) {
+            if (new_delta_x == 0) {
+                if (delta_x > 0 && update_x) {
                     new_delta_x = delta_x;
                 }
             }
             new_width = fix_size (width + new_delta_x);
-            if ( new_delta_y < height ) {
+            if (new_delta_y < height) {
                 selected_item.translate (0, new_delta_y);
                 debug ("translate: %f,%f\n", 0, new_delta_y);
                 event_y -= new_delta_y;
@@ -243,8 +243,8 @@ public class Akira.Lib.Canvas : Goo.Canvas {
             break;
         case Nob.RIGHT_CENTER:
             update_x = event_x > x;
-            if ( new_delta_x == 0 )
-                if ( delta_x > 0 && update_x ) {
+            if (new_delta_x == 0)
+                if (delta_x > 0 && update_x) {
                     new_delta_x = delta_x;
                 } else
                     break;
@@ -252,13 +252,13 @@ public class Akira.Lib.Canvas : Goo.Canvas {
             break;
         case Nob.BOTTOM_RIGHT:
             update_x = event_x > x;
-            if ( new_delta_x == 0 )
-                if ( delta_x > 0 && update_x ) {
+            if (new_delta_x == 0)
+                if (delta_x > 0 && update_x) {
                     new_delta_x = delta_x;
                 }
             update_y = event_y > y;
-            if ( new_delta_y == 0 )
-                if ( delta_y > 0 && update_y ) {
+            if (new_delta_y == 0)
+                if (delta_y > 0 && update_y) {
                     new_delta_y = delta_y;
                 }
             new_width = fix_size (width + new_delta_x);
@@ -266,20 +266,20 @@ public class Akira.Lib.Canvas : Goo.Canvas {
             break;
         case Nob.BOTTOM_CENTER:
             update_y = event_y > y;
-            if ( new_delta_y == 0 )
-                if ( delta_y > 0 && update_y ) {
+            if (new_delta_y == 0)
+                if (delta_y > 0 && update_y) {
                     new_delta_y = delta_y;
                 } else
                     break;
             new_height = fix_size (height + new_delta_y);
             break;
         case Nob.BOTTOM_LEFT:
-            if ( new_delta_x > width ) {
+            if (new_delta_x > width) {
                 new_delta_x = 0;
             }
             update_y = event_y > y;
-            if ( new_delta_y == 0 )
-                if ( delta_y > 0 && update_y ) {
+            if (new_delta_y == 0)
+                if (delta_y > 0 && update_y) {
                     new_delta_y = delta_y;
                 } else
                     break;
@@ -290,7 +290,7 @@ public class Akira.Lib.Canvas : Goo.Canvas {
             new_height = fix_size (height + new_delta_y);
             break;
         case Nob.LEFT_CENTER:
-            if ( new_delta_x < width ) {
+            if (new_delta_x < width) {
                 selected_item.translate (new_delta_x, 0);
                 event_x -= new_delta_x;
                 new_width = fix_size (width - new_delta_x);
@@ -329,11 +329,11 @@ public class Akira.Lib.Canvas : Goo.Canvas {
         update_nob_position (selected_item);
         update_select_effect (selected_item);
 
-        if ( update_x ) {
+        if (update_x) {
             temp_event_x = event_x;
             debug ("temp event x: %f\n", temp_event_x);
         }
-        if ( update_y ) {
+        if (update_y) {
             temp_event_y = event_y;
             debug ("temp event y: %f\n", temp_event_y);
         }
@@ -346,7 +346,7 @@ public class Akira.Lib.Canvas : Goo.Canvas {
     private void motion_hover_event (Gdk.EventMotion event) {
         hovered_item = get_item_at (event.x / get_scale (), event.y / get_scale (), true);
 
-        if ( !(hovered_item is Goo.CanvasItemSimple)) {
+        if (!(hovered_item is Goo.CanvasItemSimple)) {
             remove_hover_effect ();
             return;
         }
@@ -357,7 +357,7 @@ public class Akira.Lib.Canvas : Goo.Canvas {
         double check_y;
         hovered_item.get ("x", out check_x, "y", out check_y);
 
-        if ((hover_x != check_x || hover_y != check_y) && hover_effect != hovered_item ) {
+        if ((hover_x != check_x || hover_y != check_y) && hover_effect != hovered_item) {
             remove_hover_effect ();
         }
 
@@ -366,7 +366,7 @@ public class Akira.Lib.Canvas : Goo.Canvas {
     }
 
     private void add_select_effect (Goo.CanvasItem ? target) {
-        if ( target == null || target == select_effect ) {
+        if (target == null || target == select_effect) {
             return;
         }
 
@@ -391,7 +391,7 @@ public class Akira.Lib.Canvas : Goo.Canvas {
 
         nob_size = 10 / current_scale;
 
-        for ( int i = 0 ; i < 9 ; i++ ) {
+        for (int i = 0 ; i < 9 ; i++) {
             var radius = i == 8 ? nob_size : 0;
             nobs[i] = new Goo.CanvasRect (null, 0, 0, nob_size, nob_size,
                                           "line-width", line_width,
@@ -408,7 +408,7 @@ public class Akira.Lib.Canvas : Goo.Canvas {
     }
 
     private void update_select_effect (Goo.CanvasItem ? target) {
-        if ( target == null || target == select_effect ) {
+        if (target == null || target == select_effect) {
             return;
         }
 
@@ -428,7 +428,7 @@ public class Akira.Lib.Canvas : Goo.Canvas {
     }
 
     private void remove_select_effect () {
-        if ( select_effect == null ) {
+        if (select_effect == null) {
             return;
         }
 
@@ -436,20 +436,20 @@ public class Akira.Lib.Canvas : Goo.Canvas {
         select_effect = null;
         selected_item = null;
 
-        for ( int i = 0 ; i < 9 ; i++ ) {
+        for (int i = 0 ; i < 9 ; i++) {
             nobs[i].remove ();
         }
     }
 
     public void reset_select () {
-        if ( selected_item == null && select_effect == null ) {
+        if (selected_item == null && select_effect == null) {
             return;
         }
 
         select_effect.remove ();
         select_effect = null;
 
-        for ( int i = 0 ; i < 9 ; i++ ) {
+        for (int i = 0 ; i < 9 ; i++) {
             nobs[i].remove ();
         }
 
@@ -458,11 +458,11 @@ public class Akira.Lib.Canvas : Goo.Canvas {
     }
 
     private void add_hover_effect (Goo.CanvasItem ? target) {
-        if ( target == null || hover_effect != null || target == selected_item || target == select_effect ) {
+        if (target == null || hover_effect != null || target == selected_item || target == select_effect) {
             return;
         }
 
-        if ((target as Goo.CanvasItemSimple) in nobs ) {
+        if ((target as Goo.CanvasItemSimple) in nobs) {
             set_cursor_for_nob (get_grabbed_id (target));
             return;
         }
@@ -496,7 +496,7 @@ public class Akira.Lib.Canvas : Goo.Canvas {
     private void remove_hover_effect () {
         set_cursor (Gdk.CursorType.ARROW);
 
-        if ( hover_effect == null ) {
+        if (hover_effect == null) {
             return;
         }
 
@@ -505,15 +505,15 @@ public class Akira.Lib.Canvas : Goo.Canvas {
     }
 
     private int get_grabbed_id (Goo.CanvasItem ? target) {
-        for ( int i = 0 ; i < 9 ; i++ ) {
-            if ( target == nobs[i] ) return i;
+        for (int i = 0 ; i < 9 ; i++) {
+            if (target == nobs[i]) return i;
         }
 
         return Nob.NONE;
     }
 
     private void set_cursor_for_nob (int grabbed_id) {
-        switch ( grabbed_id ) {
+        switch (grabbed_id) {
         case Nob.NONE:
             set_cursor (Gdk.CursorType.ARROW);
             break;
@@ -595,7 +595,7 @@ public class Akira.Lib.Canvas : Goo.Canvas {
 
         // ROTATE nob
         double distance = 40;
-        if ( current_scale < 1 ) {
+        if (current_scale < 1) {
             distance = 40 + ((40 - (40 * current_scale)) * 2);
         }
 
@@ -614,9 +614,9 @@ public class Akira.Lib.Canvas : Goo.Canvas {
         var max_delta = Math.round ((bounds_h + height - MIN_POS) * current_scale);
         debug ("min delta y %f\n", min_delta);
         var new_y = Math.round (y);
-        if ( new_y < min_delta ) {
+        if (new_y < min_delta) {
             return min_delta;
-        } else if ( new_y > max_delta ) {
+        } else if (new_y > max_delta) {
             return max_delta;
         } else {
             return new_y;
@@ -629,9 +629,9 @@ public class Akira.Lib.Canvas : Goo.Canvas {
         var max_delta = Math.round ((bounds_h + width - MIN_POS) * current_scale);
         debug ("max delta x %f\n", max_delta);
         var new_x = Math.round (x);
-        if ( new_x < min_delta ) {
+        if (new_x < min_delta) {
             return min_delta;
-        } else if ( new_x > max_delta ) {
+        } else if (new_x > max_delta) {
             return max_delta;
         } else {
             return new_x;

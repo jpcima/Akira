@@ -106,9 +106,9 @@ public class Akira.Widgets.SettingsDialog : Gtk.Dialog {
         content_grid.attach (label_switch, 1, 3, 1, 1);
 
         label_switch.notify["active"].connect (() => {
-            if ( !settings.show_label ) {
+            if (!settings.show_label) {
                 window.action_manager.hide_labels ();
-            } else if ( settings.show_label ) {
+            } else if (settings.show_label) {
                 window.action_manager.show_labels ();
             }
         });

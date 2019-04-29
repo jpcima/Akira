@@ -56,7 +56,7 @@ public abstract class Akira.FileFormat.JsonObjectArray : Object {
      * Can be overriten to add more than one type of item into the array
      */
     protected virtual void load_array () {
-        if ( !object.has_member (property_name)) {
+        if (!object.has_member (property_name)) {
             object.set_array_member (property_name, new Json.Array ());
         }
 
@@ -71,21 +71,21 @@ public abstract class Akira.FileFormat.JsonObjectArray : Object {
 
             elements.add (element);
             element.connect_signals ();
-        } );
+        });
     }
 
     public abstract Type get_type_of_array (Json.Object object);
 
 
     public void add (FileFormat.JsonObject json_object) {
-        if ( !elements.contains (json_object)) {
+        if (!elements.contains (json_object)) {
             elements.add (json_object);
             array.add_object_element (json_object.object);
         }
     }
 
     public void remove (FileFormat.JsonObject json_object) {
-        if ( elements.contains (json_object)) {
+        if (elements.contains (json_object)) {
             var index = elements.index_of (json_object);
             elements.remove (json_object);
 

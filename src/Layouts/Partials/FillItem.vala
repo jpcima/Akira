@@ -52,7 +52,7 @@ public class Akira.Layouts.Partials.FillItem : Gtk.Grid {
         }
         set {
             // Change only if value is different
-            if ((uint) opacity_slider.get_value () != value ) {
+            if ((uint) opacity_slider.get_value () != value) {
                 opacity_slider.set_value (value);
             }
 
@@ -68,7 +68,7 @@ public class Akira.Layouts.Partials.FillItem : Gtk.Grid {
         set {
             model.visible = value;
 
-            if ( visible_button_icon != null ) {
+            if (visible_button_icon != null) {
                 visible_button.remove (visible_button_icon);
             }
 
@@ -201,7 +201,7 @@ public class Akira.Layouts.Partials.FillItem : Gtk.Grid {
 
         var popover_item_index = 0;
 
-        foreach ( Akira.Utils.BlendingMode mode in Akira.Utils.BlendingMode.all ()) {
+        foreach (Akira.Utils.BlendingMode mode in Akira.Utils.BlendingMode.all ()) {
             blending_mode_popover_items
              .insert (new Akira.Layouts.Partials.BlendingModeItem (mode), popover_item_index++);
         }
@@ -260,11 +260,11 @@ public class Akira.Layouts.Partials.FillItem : Gtk.Grid {
     }
 
     private void on_show_popover (string target) {
-        foreach ( Gtk.Widget elem in popover.get_children ()) {
+        foreach (Gtk.Widget elem in popover.get_children ()) {
             popover.remove (elem);
         }
 
-        switch ( target ) {
+        switch (target) {
         case "blending_mode":
             popover.width_request = get_allocated_width ();
             popover.relative_to = selected_blending_mode_cont;
@@ -284,7 +284,7 @@ public class Akira.Layouts.Partials.FillItem : Gtk.Grid {
             break;
         }
 
-        if ( !popover.visible ) {
+        if (!popover.visible) {
             popover.show_all ();
         } else {
             popover.hide ();
@@ -318,7 +318,7 @@ public class Akira.Layouts.Partials.FillItem : Gtk.Grid {
             provider.load_from_data (css, css.length);
 
             context.add_provider (provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-        } catch ( Error e ) {
+        } catch (Error e) {
             warning ("Style error: %s", e.message);
         }
     }

@@ -37,7 +37,7 @@ public class Akira.Utils.Dialogs : Object {
         dialog.add_action_widget (button, Gtk.ResponseType.ACCEPT);
 
         dialog.show_all ();
-        if ( dialog.run () == Gtk.ResponseType.ACCEPT ) {
+        if (dialog.run () == Gtk.ResponseType.ACCEPT) {
             dialog.destroy ();
             return true;
         }

@@ -55,7 +55,7 @@ public class Akira.FileFormat.ZipArchiveHandler : GLib.Object {
             FileUtils.get_contents (file.get_path (), out data);
 
             return data;
-        } catch ( Error e ) {
+        } catch (Error e) {
             warning (e.message);
             return "";
         }
@@ -67,7 +67,7 @@ public class Akira.FileFormat.ZipArchiveHandler : GLib.Object {
             parser.load_from_data (get_content_from_file (file));
 
             return parser.get_root ().get_object ();
-        } catch ( Error e ) {
+        } catch (Error e) {
             return new Json.Object ();
         }
     }
@@ -75,7 +75,7 @@ public class Akira.FileFormat.ZipArchiveHandler : GLib.Object {
     protected static void write_content_to_file (File file, string data) {
         try {
             FileUtils.set_contents (file.get_path (), data);
-        } catch ( Error e ) {
+        } catch (Error e) {
             warning (e.message);
         }
     }
@@ -84,10 +84,10 @@ public class Akira.FileFormat.ZipArchiveHandler : GLib.Object {
      * Helper function to create a directory if it does not exist
      */
     protected void make_dir (File file) {
-        if ( !file.query_exists ()) {
+        if (!file.query_exists ()) {
             try {
                 file.make_directory_with_parents ();
-            } catch ( Error e ) {
+            } catch (Error e) {
                 warning ("%s\n", e.message);
             }
         }
@@ -97,10 +97,10 @@ public class Akira.FileFormat.ZipArchiveHandler : GLib.Object {
      * Helper function to create a file if it does not exist
      */
     protected void make_file (File file) {
-        if ( !file.query_exists ()) {
+        if (!file.query_exists ()) {
             try {
                 file.create (FileCreateFlags.REPLACE_DESTINATION);
-            } catch ( Error e ) {
+            } catch (Error e) {
                 warning ("%s\n", e.message);
             }
         }
@@ -145,7 +145,7 @@ public class Akira.FileFormat.ZipArchiveHandler : GLib.Object {
         var tmp_file = File.new_for_path (opened_file.get_path () + ".tmp");
 
         compress (unarchived_location, tmp_file);
-        if ( opened_file.query_exists ()) {
+        if (opened_file.query_exists ()) {
             opened_file.delete ();
         }
 
@@ -157,7 +157,7 @@ public class Akira.FileFormat.ZipArchiveHandler : GLib.Object {
      */
     protected void clean () throws Error {
         // Checking if it contains the prefix as a safety to prevent errors
-        if ( is_opened () && unarchived_location.get_path ().contains (UNARCHIVED_PREFIX)) {
+        if (is_opened () && unarchived_location.get_path ().contains (UNARCHIVED_PREFIX)) {
             delete_recursive (unarchived_location);
             unarchived_location.delete ();
         }
@@ -185,10 +185,10 @@ public class Akira.FileFormat.ZipArchiveHandler : GLib.Object {
             var path = Path.build_filename (location.get_path (), get_guid (format) + "." + extension);
 
             var file = File.new_for_path (path);
-            if ( !file.query_exists ()) {
+            if (!file.query_exists ()) {
                 return file;
             }
-        } while ( true );
+        } while (true);
     }
 
     private Rand ? rand = new Rand ();
@@ -198,8 +198,8 @@ public class Akira.FileFormat.ZipArchiveHandler : GLib.Object {
         var guid = new StringBuilder.sized (format.length);
         int format_length = format.length;
 
-        for ( int i = 0 ; i < format_length ; i++ ) {
-            switch ( format[i] ) {
+        for (int i = 0 ; i < format_length ; i++) {
+            switch (format[i]) {
             case 'X':
                 var r = rand.next_int () % GUID_CHARS.length;
                 guid.append_c (GUID_CHARS[r]);
@@ -219,16 +219,16 @@ public class Akira.FileFormat.ZipArchiveHandler : GLib.Object {
             var enumerator = file.enumerate_children (FileAttribute.STANDARD_NAME, 0);
 
             FileInfo file_info;
-            while ((file_info = enumerator.next_file ()) != null ) {
+            while ((file_info = enumerator.next_file ()) != null) {
                 var current_file = file.resolve_relative_path (file_info.get_name ());
 
-                if ( file_info.get_file_type () == FileType.DIRECTORY ) {
+                if (file_info.get_file_type () == FileType.DIRECTORY) {
                     delete_recursive (current_file);
                 }
 
                 current_file.delete ();
             }
-        } catch ( Error e ) {
+        } catch (Error e) {
             critical ("Error: %s\n", e.message);
         }
     }
@@ -249,30 +249,30 @@ public class Akira.FileFormat.ZipArchiveHandler : GLib.Object {
         extractor.set_options (flags);
         extractor.set_standard_lookup ();
 
-        if ( archive.open_filename (gzipped_file.get_path (), 10240) != Archive.Result.OK ) {
+        if (archive.open_filename (gzipped_file.get_path (), 10240) != Archive.Result.OK) {
             throw new FileError.FAILED ("Error opening %s: %s (%d)", gzipped_file.get_path (), archive.error_string (), archive.errno ());
         }
 
         unowned Archive.Entry entry;
         Archive.Result last_result;
-        while ((last_result = archive.next_header (out entry)) == Archive.Result.OK ) {
+        while ((last_result = archive.next_header (out entry)) == Archive.Result.OK) {
             entry.set_pathname (Path.build_filename (location.get_path (), entry.pathname ()));
 
-            if ( extractor.write_header (entry) != Archive.Result.OK ) {
+            if (extractor.write_header (entry) != Archive.Result.OK) {
                 continue;
             }
 
             void * buffer = null;
             size_t buffer_length;
             Posix.off_t offset;
-            while ( archive.read_data_block (out buffer, out buffer_length, out offset) == Archive.Result.OK ) {
-                if ( extractor.write_data_block (buffer, buffer_length, offset) != Archive.Result.OK ) {
+            while (archive.read_data_block (out buffer, out buffer_length, out offset) == Archive.Result.OK) {
+                if (extractor.write_data_block (buffer, buffer_length, offset) != Archive.Result.OK) {
                     break;
                 }
             }
         }
 
-        if ( last_result != Archive.Result.EOF ) {
+        if (last_result != Archive.Result.EOF) {
             critical ("Error: %s (%d)", archive.error_string (), archive.errno ());
         }
     }
@@ -280,7 +280,7 @@ public class Akira.FileFormat.ZipArchiveHandler : GLib.Object {
     // Compresses all files recursibly from location to the gzipped file.
     private static void compress (File location, File gzipped_file) throws Error {
         var to_write = File.new_for_path (gzipped_file.get_path ());
-        if ( to_write.query_exists ()) {
+        if (to_write.query_exists ()) {
             to_write.delete ();
         }
 
@@ -292,7 +292,7 @@ public class Akira.FileFormat.ZipArchiveHandler : GLib.Object {
 
         add_to_archive_recursive (location, location, archive);
 
-        if ( archive.close () != Archive.Result.OK ) {
+        if (archive.close () != Archive.Result.OK) {
             critical ("Error : %s (%d)", archive.error_string (), archive.errno ());
         }
     }
@@ -302,10 +302,10 @@ public class Akira.FileFormat.ZipArchiveHandler : GLib.Object {
             var enumerator = folder.enumerate_children (FileAttribute.STANDARD_NAME, 0);
 
             FileInfo current_info;
-            while ((current_info = enumerator.next_file ()) != null ) {
+            while ((current_info = enumerator.next_file ()) != null) {
                 var current_file = folder.resolve_relative_path (current_info.get_name ());
 
-                if ( current_info.get_file_type () == FileType.DIRECTORY ) {
+                if (current_info.get_file_type () == FileType.DIRECTORY) {
                     add_to_archive_recursive (initial_folder, current_file, archive);
                 } else {
                     GLib.FileInfo file_info = current_file.query_info (GLib.FileAttribute.STANDARD_SIZE, GLib.FileQueryInfoFlags.NONE);
@@ -320,7 +320,7 @@ public class Akira.FileFormat.ZipArchiveHandler : GLib.Object {
                     entry.set_filetype ((uint) Posix.S_IFREG);
                     entry.set_perm (0644);
 
-                    if ( archive.write_header (entry) != Archive.Result.OK ) {
+                    if (archive.write_header (entry) != Archive.Result.OK) {
                         critical ("Error writing '%s': %s (%d)", current_file.get_path (), archive.error_string (), archive.errno ());
                         return;
                     }
@@ -328,8 +328,8 @@ public class Akira.FileFormat.ZipArchiveHandler : GLib.Object {
                     // Add the actual content of the file
                     size_t bytes_read;
                     uint8[64] buffer = new uint8[64];
-                    while ( data_input_stream.read_all (buffer, out bytes_read)) {
-                        if ( bytes_read <= 0 ) {
+                    while (data_input_stream.read_all (buffer, out bytes_read)) {
+                        if (bytes_read <= 0) {
                             break;
                         }
 
@@ -337,7 +337,7 @@ public class Akira.FileFormat.ZipArchiveHandler : GLib.Object {
                     }
                 }
             }
-        } catch ( Error e ) {
+        } catch (Error e) {
             critical ("Error: %s\n", e.message);
         }
     }
@@ -365,7 +365,7 @@ public class Akira.FileFormat.ZipArchiveHandler : GLib.Object {
         public int file_references (File file) {
             var file_basename = file.get_basename ();
 
-            if ( ref_counter.has_key (file_basename)) {
+            if (ref_counter.has_key (file_basename)) {
                 return ref_counter.get (file_basename);
             } else {
                 return 0;
@@ -377,7 +377,7 @@ public class Akira.FileFormat.ZipArchiveHandler : GLib.Object {
          */
         public void ref_file (File file) {
             var file_basename = file.get_basename ();
-            if ( for_deletion.has_key (file_basename)) {
+            if (for_deletion.has_key (file_basename)) {
                 unmark_for_deletion (file);
             }
 
@@ -393,10 +393,10 @@ public class Akira.FileFormat.ZipArchiveHandler : GLib.Object {
             var file_basename = file.get_basename ();
 
             var ref_count = file_references (file);
-            if ( ref_count > 0 ) {
+            if (ref_count > 0) {
                 ref_counter.set (file_basename, ref_count - 1);
 
-                if ( ref_count == 1 ) {
+                if (ref_count == 1) {
                     mark_for_deletion (file);
                 }
                 print ("File unref %d %s \n", ref_count - 1, file.get_basename ());
@@ -410,7 +410,7 @@ public class Akira.FileFormat.ZipArchiveHandler : GLib.Object {
          * Files will only be added to the list when they are inside the unarchived location
          */
         public void mark_for_deletion (File file) {
-            if ( file.get_path ().contains (unarchived_location.get_path ())) {
+            if (file.get_path ().contains (unarchived_location.get_path ())) {
                 for_deletion.set (file.get_basename (), file);
                 print ("Marked for deletion: %s\n", file.get_basename ());
             }
@@ -428,10 +428,10 @@ public class Akira.FileFormat.ZipArchiveHandler : GLib.Object {
          * Deletes all files whose ref counter is set to 0, or those marked for deletion
          */
         public void delete_files_marked_for_deletion () {
-            foreach ( var file in for_deletion.values ) {
+            foreach (var file in for_deletion.values) {
                 try {
                     file.delete ();
-                } catch ( Error e ) {
+                } catch (Error e) {
                     warning ("File could not be deleted %s\n", e.message);
                 }
             }

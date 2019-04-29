@@ -66,17 +66,17 @@ public class Akira.Partials.LinkedInput : Gtk.Grid {
         entry.width_chars = 0;
         entry.hexpand = true;
         entry.notify["text"].connect (() => {
-            if ( manually_edited ) {
+            if (manually_edited) {
                 var text_canon = entry.text.replace (",", ".");
                 text_canon.canon ("0123456789.", '?');
-                if ( text_canon.contains ("?") || (unit != null && !entry.text.has_suffix (unit))) {
+                if (text_canon.contains ("?") || (unit != null && !entry.text.has_suffix (unit))) {
                     entry.text = text_canon.replace ("?", "") + unit;
                 }
                 var new_val = double.parse (text_canon.replace ("?", ""));
-                if ( new_val != value ) {
+                if (new_val != value) {
                     value = new_val;
                 }
-                if ( limit > 0.0 && new_val > limit ) {
+                if (limit > 0.0 && new_val > limit) {
                     entry.text = limit.to_string ();
                 }
             }
@@ -84,10 +84,10 @@ public class Akira.Partials.LinkedInput : Gtk.Grid {
         notify["value"].connect (() => {
             // Remove trailing 0
             var format_value = "%f".printf (value).replace (",", ".");
-            while ( format_value.has_suffix ("0") && format_value != "0" ) {
+            while (format_value.has_suffix ("0") && format_value != "0") {
                 format_value = format_value.slice (0, -1);
             }
-            if ( format_value.has_suffix (".")) {
+            if (format_value.has_suffix (".")) {
                 format_value += "0";
             }
 
@@ -96,7 +96,7 @@ public class Akira.Partials.LinkedInput : Gtk.Grid {
             manually_edited = true;
         });
 
-        if ( reversed ) {
+        if (reversed) {
             entry.xalign = 1.0f;
             entry.get_style_context ().add_class ("reversed");
             attach (entry, 0, 0);

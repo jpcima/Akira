@@ -51,7 +51,7 @@ public class Akira.Partials.AlignBoxButton : Gtk.Button {
         var new_icon = settings.use_symbolic == true ? ("%s-symbolic".printf (icon)) :
                        icon.replace ("-symbolic", "");
 
-        if ( btn_image != null ) {
+        if (btn_image != null) {
             remove (btn_image);
         }
 

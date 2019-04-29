@@ -222,7 +222,7 @@ public class Akira.Layouts.Partials.Layer : Gtk.ListBoxRow {
     }
 
     private void is_group () {
-        if ( !grouped ) {
+        if (!grouped) {
             add (label_grid);
             return;
         }
@@ -249,7 +249,7 @@ public class Akira.Layouts.Partials.Layer : Gtk.ListBoxRow {
         container.selection_mode = Gtk.SelectionMode.SINGLE;
         revealer.add (container);
 
-        if ( revealer.get_reveal_child ()) {
+        if (revealer.get_reveal_child ()) {
             icon_folder_open.visible = true;
             icon_folder_open.no_show_all = false;
             icon.visible = false;
@@ -264,14 +264,14 @@ public class Akira.Layouts.Partials.Layer : Gtk.ListBoxRow {
     }
 
     private void reveal_actions () {
-        if ( !grouped ) {
+        if (!grouped) {
             return;
         }
 
         button.toggled.connect (() => {
             revealer.reveal_child = !revealer.get_reveal_child ();
 
-            if ( revealer.get_reveal_child ()) {
+            if (revealer.get_reveal_child ()) {
                 button.get_style_context ().remove_class ("closed");
 
                 icon_folder_open.visible = true;
@@ -342,7 +342,7 @@ public class Akira.Layouts.Partials.Layer : Gtk.ListBoxRow {
     }
 
     public bool on_drag_motion (Gdk.DragContext context, int x, int y, uint time) {
-        if ( !scrolling ) {
+        if (!scrolling) {
             window.main_window.right_sidebar.indicator.visible = true;
             window.main_window.right_sidebar.indicator.no_show_all = false;
             window.main_window.right_sidebar.indicator.show_all ();
@@ -366,19 +366,19 @@ public class Akira.Layouts.Partials.Layer : Gtk.ListBoxRow {
         int real_y = (index * alloc.height) + (row_index * alloc.height) - alloc.height + y;
 
         check_scroll (real_y);
-        if ( should_scroll && !scrolling ) {
+        if (should_scroll && !scrolling) {
             scrolling = true;
             Timeout.add (SCROLL_DELAY, scroll);
         }
 
-        if ( layer_group != null ) {
+        if (layer_group != null) {
             group_y = layer_group.get_index () * alloc.height;
             window.main_window.right_sidebar.indicator.margin_start = 40;
         } else {
             window.main_window.right_sidebar.indicator.margin_start = 20;
-            for ( int i = index ; i >= 1 ; i-- ) {
+            for (int i = index ; i >= 1 ; i--) {
                 var past_layer = (Akira.Layouts.Partials.Layer)row.container.get_row_at_index (i);
-                if ( past_layer.grouped ) {
+                if (past_layer.grouped) {
                     group_y = past_layer.get_allocated_height () - alloc.height;
                 }
             }
@@ -386,19 +386,19 @@ public class Akira.Layouts.Partials.Layer : Gtk.ListBoxRow {
 
         vadjustment = window.main_window.right_sidebar.layers_scroll.vadjustment;
 
-        if ( vadjustment == null ) {
+        if (vadjustment == null) {
             vadjustment.value = 0;
         }
 
-        if ( index == artboard.layers_count && layer_group == null && !grouped ) {
+        if (index == artboard.layers_count && layer_group == null && !grouped) {
             last_adjust = 6;
         }
 
         // Highlight the correct dropping area
-        if ( grouped ) {
+        if (grouped) {
             handle_grid.get_allocation (out alloc);
 
-            if ( y >= (alloc.height / 2)) {
+            if (y >= (alloc.height / 2)) {
                 get_style_context ().add_class ("highlight");
                 window.main_window.right_sidebar.indicator.visible = false;
             } else {
@@ -407,7 +407,7 @@ public class Akira.Layouts.Partials.Layer : Gtk.ListBoxRow {
             }
 
         } else {
-            if ( y > (alloc.height / 2)) {
+            if (y > (alloc.height / 2)) {
                 window.main_window.right_sidebar.indicator.margin_top = (index * alloc.height) + (row_index * alloc.height) - 6 - (int) vadjustment.value + group_y - last_adjust;
             } else {
                 window.main_window.right_sidebar.indicator.margin_top = (index * alloc.height) + (row_index * alloc.height) - alloc.height - 6 - (int) vadjustment.value + group_y - last_adjust;
@@ -428,7 +428,7 @@ public class Akira.Layouts.Partials.Layer : Gtk.ListBoxRow {
     }
 
     public bool on_click_event (Gdk.Event event) {
-        if ( event.type == Gdk.EventType.@2BUTTON_PRESS ) {
+        if (event.type == Gdk.EventType.@2BUTTON_PRESS) {
             entry.visible = true;
             entry.no_show_all = false;
             label.visible = false;
@@ -449,22 +449,22 @@ public class Akira.Layouts.Partials.Layer : Gtk.ListBoxRow {
             return false;
         }
 
-        if ( event.type == Gdk.EventType.BUTTON_RELEASE ) {
+        if (event.type == Gdk.EventType.BUTTON_RELEASE) {
 
-            if ( entry.visible == true ) {
+            if (entry.visible == true) {
                 return false;
             }
 
             Gdk.ModifierType state;
             event.get_state (out state);
 
-            if ( state.to_string () == "GDK_CONTROL_MASK" ) {
+            if (state.to_string () == "GDK_CONTROL_MASK") {
                 artboard.container.selection_mode = Gtk.SelectionMode.MULTIPLE;
 
-                if ( layer_group != null ) {
+                if (layer_group != null) {
                     layer_group.container.selection_mode = Gtk.SelectionMode.MULTIPLE;
 
-                    if ( !layer_group.is_selected ()) {
+                    if (!layer_group.is_selected ()) {
                         Timeout.add (1, () => {
                             artboard.container.unselect_row (layer_group);
                             return false;
@@ -472,7 +472,7 @@ public class Akira.Layouts.Partials.Layer : Gtk.ListBoxRow {
                     }
                 }
 
-                if ( is_selected ()) {
+                if (is_selected ()) {
                     Timeout.add (1, () => {
                         artboard.container.unselect_row (this);
                         return false;
@@ -481,8 +481,8 @@ public class Akira.Layouts.Partials.Layer : Gtk.ListBoxRow {
             } else {
                 artboard.container.selection_mode = Gtk.SelectionMode.SINGLE;
 
-                window.main_window.right_sidebar.layers_panel.foreach ( child => {
-                    if ( child is Akira.Layouts.Partials.Artboard ) {
+                window.main_window.right_sidebar.layers_panel.foreach (child => {
+                    if (child is Akira.Layouts.Partials.Artboard) {
                         Akira.Layouts.Partials.Artboard artboard = (Akira.Layouts.Partials.Artboard)child;
 
                         window.main_window.right_sidebar.layers_panel.unselect_row (artboard);
@@ -490,9 +490,9 @@ public class Akira.Layouts.Partials.Layer : Gtk.ListBoxRow {
 
                         unselect_groups (artboard.container);
                     }
-                } );
+                });
 
-                if ( layer_group != null ) {
+                if (layer_group != null) {
                     artboard.container.selection_mode = Gtk.SelectionMode.NONE;
                     artboard.container.unselect_row (layer_group);
                 }
@@ -510,16 +510,16 @@ public class Akira.Layouts.Partials.Layer : Gtk.ListBoxRow {
     }
 
     private void unselect_groups (Gtk.ListBox container) {
-        container.foreach ( child => {
-            if ( child is Akira.Layouts.Partials.Layer ) {
+        container.foreach (child => {
+            if (child is Akira.Layouts.Partials.Layer) {
                 Akira.Layouts.Partials.Layer layer = (Akira.Layouts.Partials.Layer)child;
 
-                if ( layer.grouped ) {
+                if (layer.grouped) {
                     layer.container.unselect_all ();
                     unselect_groups (layer.container);
                 }
             }
-        } );
+        });
     }
 
     public void update_on_enter () {
@@ -532,7 +532,7 @@ public class Akira.Layouts.Partials.Layer : Gtk.ListBoxRow {
     }
 
     public bool update_on_escape (Gdk.EventKey key) {
-        if ( key.keyval == 65307 ) {
+        if (key.keyval == 65307) {
             entry.text = label.label;
 
             update_label ();
@@ -565,7 +565,7 @@ public class Akira.Layouts.Partials.Layer : Gtk.ListBoxRow {
 
             button_locked.tooltip_text = active ? _ ("Unlock Layer") : _ ("Lock Layer");
 
-            if ( active ) {
+            if (active) {
                 button_locked.get_style_context ().add_class ("show");
             } else {
                 button_locked.get_style_context ().remove_class ("show");
@@ -587,7 +587,7 @@ public class Akira.Layouts.Partials.Layer : Gtk.ListBoxRow {
 
             button_hidden.tooltip_text = active ? _ ("Show Layer") : _ ("Hide Layer");
 
-            if ( active ) {
+            if (active) {
                 button_hidden.get_style_context ().add_class ("show");
             } else {
                 button_hidden.get_style_context ().remove_class ("show");
@@ -608,7 +608,7 @@ public class Akira.Layouts.Partials.Layer : Gtk.ListBoxRow {
     private void check_scroll (int y) {
         vadjustment = window.main_window.right_sidebar.layers_scroll.vadjustment;
 
-        if ( vadjustment == null ) {
+        if (vadjustment == null) {
             return;
         }
 
@@ -617,10 +617,10 @@ public class Akira.Layouts.Partials.Layer : Gtk.ListBoxRow {
         double show_min = double.max (0, y - SCROLL_DISTANCE);
         double show_max = double.min (vadjustment.upper, y + SCROLL_DISTANCE);
 
-        if ( vadjustment_min > show_min ) {
+        if (vadjustment_min > show_min) {
             should_scroll = true;
             scroll_up = true;
-        } else if ( vadjustment_max < show_max ) {
+        } else if (vadjustment_max < show_max) {
             should_scroll = true;
             scroll_up = false;
         } else {
@@ -629,8 +629,8 @@ public class Akira.Layouts.Partials.Layer : Gtk.ListBoxRow {
     }
 
     private bool scroll () {
-        if ( should_scroll ) {
-            if ( scroll_up ) {
+        if (should_scroll) {
+            if (scroll_up) {
                 vadjustment.value -= SCROLL_STEP_SIZE;
             } else {
                 vadjustment.value += SCROLL_STEP_SIZE;

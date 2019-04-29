@@ -38,8 +38,8 @@ public class Akira.Application : Gtk.Application {
     }
 
     public override void open (File[] files, string hint) {
-        foreach ( var file in files ) {
-            if ( is_file_opened (file)) {
+        foreach (var file in files) {
+            if (is_file_opened (file)) {
                 // Preset active window with file
                 var window = get_window_from_file (file);
                 window.show_app ();
@@ -55,7 +55,7 @@ public class Akira.Application : Gtk.Application {
     }
 
     public void register_file_to_window (File file, Akira.Window window) {
-        if ( !is_file_opened (file)) {
+        if (!is_file_opened (file)) {
             opened_files.set (file.get_uri (), window);
         } else {
             warning ("File was opened in two separate windows");

@@ -34,14 +34,14 @@ public class Akira.Layouts.Partials.TransformPanel : Gtk.Grid {
         var width = new Akira.Partials.LinkedInput (C_ ("The first letter of Width", "W"));
         var height = new Akira.Partials.LinkedInput (C_ ("The first letter of Height", "H"));
         width.notify["value"].connect (() => {
-            if ( size_lock ) {
+            if (size_lock) {
                 height.value = width.value / size_ratio;
             } else {
                 size_ratio = width.value / height.value;
             }
         });
         height.notify["value"].connect (() => {
-            if ( size_lock ) {
+            if (size_lock) {
                 width.value = height.value * size_ratio;
             } else {
                 size_ratio = width.value / height.value;

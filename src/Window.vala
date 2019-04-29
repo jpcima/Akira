@@ -67,7 +67,7 @@ public class Akira.Window : Gtk.ApplicationWindow {
     private void build_ui () {
         set_titlebar (headerbar);
         set_border_width (0);
-        if ( Constants.PROFILE == "development" ) {
+        if (Constants.PROFILE == "development") {
             headerbar.get_style_context ().add_class ("devel");
         }
 
@@ -88,7 +88,7 @@ public class Akira.Window : Gtk.ApplicationWindow {
             Gdk.Screen.get_default (), css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
             );
 
-        if ( !settings.show_label ) {
+        if (!settings.show_label) {
             Akira.Services.ActionManager.action_from_group (Akira.Services.ActionManager.ACTION_LABELS, get_action_group ("win"));
         }
     }
@@ -98,15 +98,15 @@ public class Akira.Window : Gtk.ApplicationWindow {
 
         save_and_close_current_file ();
 
-        if ( !edited ) {
+        if (!edited) {
             app.get_active_window ().destroy ();
             on_destroy ();
         }
 
-        if ( edited ) {
+        if (edited) {
             confirmed = dialogs.message_dialog (_ ("Are you sure you want to quit?"), _ ("All unsaved data will be lost and impossible to recover."), "system-shutdown", _ ("Yes, Quit!"));
 
-            if ( confirmed ) {
+            if (confirmed) {
                 app.get_active_window ().destroy ();
                 on_destroy ();
             }
@@ -118,7 +118,7 @@ public class Akira.Window : Gtk.ApplicationWindow {
     public void on_destroy () {
         uint length = app.windows.length ();
 
-        if ( length == 0 ) {
+        if (length == 0) {
             Gtk.main_quit ();
         }
     }
@@ -156,7 +156,7 @@ public class Akira.Window : Gtk.ApplicationWindow {
     }
 
     private void save_and_close_current_file () {
-        if ( akira_file != null ) {
+        if (akira_file != null) {
             akira_file.save_file ();
             akira_file.close ();
         }
